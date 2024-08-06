@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq5141bkagfoy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_btg5p"]
+
+[node name="Orc" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+animation = &"Idle"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_btg5p")

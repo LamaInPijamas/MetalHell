@@ -1,8 +1,7 @@
-[gd_scene load_steps=44 format=3 uid="uid://etww1b82qhl6"]
+[gd_scene load_steps=40 format=3 uid="uid://etww1b82qhl6"]
 
 [ext_resource type="Script" path="res://Player/Prototype/character_body_2d.gd" id="1_bbi0l"]
 [ext_resource type="Texture2D" uid="uid://btarv8764euuj" path="res://Player/Prototype/textures/PrototypeTextSingleImage.png" id="1_c8yrg"]
-[ext_resource type="PackedScene" uid="uid://ddmlq8takht7c" path="res://ghost.tscn" id="2_x330g"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_duibq"]
 radius = 3.0
@@ -355,25 +354,10 @@ states/idle/position = Vector2(406, 105.625)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_faw7p"), "idle", "Run", SubResource("AnimationNodeStateMachineTransition_wm4ht"), "Run", "idle", SubResource("AnimationNodeStateMachineTransition_n4rgi"), "Run", "Dodge", SubResource("AnimationNodeStateMachineTransition_du16j"), "Dodge", "Run", SubResource("AnimationNodeStateMachineTransition_eg7ky"), "Dodge", "idle", SubResource("AnimationNodeStateMachineTransition_46thw")]
 graph_offset = Vector2(-59.64, -73.6725)
 
-[sub_resource type="Gradient" id="Gradient_whnqg"]
-offsets = PackedFloat32Array(0.0124481, 1)
-colors = PackedColorArray(0.305882, 0.470588, 0.960784, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_lu1mh"]
-gradient = SubResource("Gradient_whnqg")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d02of"]
-particle_flag_disable_z = true
-velocity_pivot = Vector3(2.08165e-12, -1, 2.08165e-12)
-direction = Vector3(2.08165e-12, -1, 2.08165e-12)
-initial_velocity_min = 10.0
-initial_velocity_max = 40.0
-gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
-color_ramp = SubResource("GradientTexture1D_lu1mh")
-
 [node name="CharacterBody2D" type="CharacterBody2D"]
+z_index = 10
+y_sort_enabled = true
 script = ExtResource("1_bbi0l")
-ghost_node = ExtResource("2_x330g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_c8yrg")
@@ -391,9 +375,6 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_yc5je")
-}
 tree_root = SubResource("AnimationNodeStateMachine_nbmiw")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/idle = false
@@ -412,16 +393,5 @@ wait_time = 0.2
 [node name="dodge_cooldown" type="Timer" parent="."]
 wait_time = 0.6
 
-[node name="ghost_timer" type="Timer" parent="."]
-wait_time = 0.15
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-show_behind_parent = true
-position = Vector2(0, 9)
-emitting = false
-amount = 35
-process_material = SubResource("ParticleProcessMaterial_d02of")
-
 [connection signal="timeout" from="dodge_time" to="." method="_on_dodge_time_timeout"]
 [connection signal="timeout" from="dodge_cooldown" to="." method="_on_dodge_cooldown_timeout"]
-[connection signal="timeout" from="ghost_timer" to="." method="_on_ghost_timer_timeout"]
