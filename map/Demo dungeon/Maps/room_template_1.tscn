@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8k7xpmxa2xu7"]
+[gd_scene load_steps=10 format=3 uid="uid://b8k7xpmxa2xu7"]
 
 [ext_resource type="PackedScene" uid="uid://etww1b82qhl6" path="res://Player/Prototype/character_body_2d.tscn" id="1_knd77"]
-[ext_resource type="Texture2D" uid="uid://d0p61a6yyrd5b" path="res://Art/Pixel Crawler - FREE - 1.8/Environment/Dungeon Prison/Assets/Tiles.png" id="2_jnefs"]
-[ext_resource type="Texture2D" uid="uid://cttmssw6rl1la" path="res://Art/Pixel Crawler - FREE - 1.8/Environment/Dungeon Prison/Assets/Props.png" id="3_bgq3a"]
-[ext_resource type="Texture2D" uid="uid://c7uwtudym7p1k" path="res://Art/Pixel Crawler - FREE - 1.8/Environment/Green Woods/Assets/Trees.png" id="4_l2wmm"]
+[ext_resource type="Texture2D" uid="uid://d0p61a6yyrd5b" path="res://Art/Main Art/Environment/Dungeon Prison/Assets/Tiles.png" id="2_jnefs"]
+[ext_resource type="Texture2D" uid="uid://cttmssw6rl1la" path="res://Art/Main Art/Environment/Dungeon Prison/Assets/Props.png" id="3_bgq3a"]
+[ext_resource type="Texture2D" uid="uid://c7uwtudym7p1k" path="res://Art/Main Art/Environment/Green Woods/Assets/Trees.png" id="4_l2wmm"]
+[ext_resource type="PackedScene" uid="uid://cq5141bkagfoy" path="res://Enemy/orc.tscn" id="5_1jhu4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lfmno"]
 texture = ExtResource("2_jnefs")
@@ -1771,6 +1772,7 @@ texture = ExtResource("4_l2wmm")
 
 [sub_resource type="TileSet" id="TileSet_r63rv"]
 physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 10
 sources/0 = SubResource("TileSetAtlasSource_lfmno")
 sources/1 = SubResource("TileSetAtlasSource_ehs4v")
 sources/2 = SubResource("TileSetAtlasSource_th24r")
@@ -1795,3 +1797,6 @@ layer_1/tile_data = PackedInt32Array()
 layer_2/name = "Props"
 layer_2/y_sort_enabled = true
 layer_2/tile_data = PackedInt32Array(-327676, 327680, 10, -262140, 327680, 11, -196604, 327680, 12, -131068, 327680, 13, -327675, 393216, 10, -262139, 393216, 11, -196603, 393216, 12, -131067, 393216, 13, -524285, 917504, 6, -458749, 917504, 7, -393213, 917504, 8, -327677, 917504, 9, -524282, 917504, 6, -458746, 917504, 7, -393210, 917504, 8, -327674, 917504, 9, -131077, 0, 3, -65541, 0, 4, -5, 0, 5, 65531, 0, 6, -131076, 65536, 3, -65540, 65536, 4, -4, 65536, 5, 65532, 65536, 6, -131075, 131072, 3, -65539, 131072, 4, -3, 131072, 5, 65533, 131072, 6, -196598, 0, 3, -65526, 0, 5, 10, 0, 6, -196597, 65536, 3, -131061, 65536, 4, -65525, 65536, 5, 11, 65536, 6, -196596, 131072, 3, -131060, 131072, 4, -65524, 131072, 5, 12, 131072, 6, -393224, 655361, 2, -327688, 655361, 3, -262152, 655361, 4, -393223, 720897, 2, -327687, 720897, 3, -262151, 720897, 4, -393222, 655361, 2, -327686, 655361, 3, -262150, 655361, 4, -393221, 720897, 2, -327685, 720897, 3, -262149, 720897, 4, -458737, 655361, 2, -393201, 655361, 3, -327665, 655361, 4, -458736, 720897, 2, -393200, 720897, 3, -327664, 720897, 4, -458739, 655361, 2, -393203, 655361, 3, -327667, 655361, 4, -458738, 720897, 2, -393202, 720897, 3, -327666, 720897, 4, -458740, 655361, 0, -393204, 655361, 1, -393220, 655361, 0, -393214, 1, 13, 262142, 131073, 1, 262143, 393217, 15, 262139, 524289, 15, 196622, 393217, 15, -327668, 131073, 1, -327679, 524289, 15, -458750, 1, 12, -458745, 1, 12, -393209, 1, 13, -131062, 0, 4, 196600, 65537, 0, 131064, 65537, 0, 65528, 65537, 0, -8, 1, 0, -65544, 1, 0, 65552, 131073, 1, 131088, 393217, 15, -393217, 393217, 3, -327681, 393217, 4, -458752, 393217, 3, -393216, 393217, 4, -458743, 458753, 2, -393207, 458753, 3, -458742, 524289, 2, -393206, 524289, 3, -458741, 589825, 2, -393205, 589825, 3)
+
+[node name="Orc" parent="." instance=ExtResource("5_1jhu4")]
+position = Vector2(101, 20)

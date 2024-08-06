@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d4kil76thp6lt"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_yf8lq"]
-[ext_resource type="Texture2D" uid="uid://d0p61a6yyrd5b" path="res://Art/Pixel Crawler - FREE - 1.8/Environment/Dungeon Prison/Assets/Tiles.png" id="2_6e4y8"]
+[ext_resource type="Texture2D" uid="uid://d0p61a6yyrd5b" path="res://Art/Main Art/Environment/Dungeon Prison/Assets/Tiles.png" id="2_6e4y8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7r1xk"]
 texture = ExtResource("2_6e4y8")

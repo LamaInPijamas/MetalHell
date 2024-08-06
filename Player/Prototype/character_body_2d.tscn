@@ -357,6 +357,8 @@ graph_offset = Vector2(-59.64, -73.6725)
 [node name="CharacterBody2D" type="CharacterBody2D"]
 z_index = 10
 y_sort_enabled = true
+collision_layer = 2
+collision_mask = 269
 script = ExtResource("1_bbi0l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -365,7 +367,6 @@ hframes = 6
 vframes = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_duibq")
 

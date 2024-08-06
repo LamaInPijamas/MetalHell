@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bf8mlmdto3yy6"]
 
 [ext_resource type="Script" path="res://Player/Knight/PlayerKnight.gd" id="1_akqx8"]
-[ext_resource type="Texture2D" uid="uid://sm3ihtm5foo3" path="res://Art/Pixel Crawler - FREE - 1.8/Heroes/Knight/Idle/Idle-Sheet.png" id="1_llnxm"]
+[ext_resource type="Texture2D" uid="uid://sm3ihtm5foo3" path="res://Art/Main Art/Heroes/Knight/Idle/Idle-Sheet.png" id="1_llnxm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g407a"]
 radius = 6.0
