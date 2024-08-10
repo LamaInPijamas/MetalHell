@@ -1,12 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8k7xpmxa2xu7"]
+[gd_scene load_steps=10 format=3 uid="uid://b8k7xpmxa2xu7"]
 
-[ext_resource type="Script" path="res://map/Demo dungeon/Maps/room_template_1.gd" id="1_6mvw1"]
 [ext_resource type="PackedScene" uid="uid://etww1b82qhl6" path="res://Player/Prototype/character_body_2d.tscn" id="1_knd77"]
 [ext_resource type="Texture2D" uid="uid://d0p61a6yyrd5b" path="res://Art/Main Art/Environment/Dungeon Prison/Assets/Tiles.png" id="2_jnefs"]
 [ext_resource type="Texture2D" uid="uid://cttmssw6rl1la" path="res://Art/Main Art/Environment/Dungeon Prison/Assets/Props.png" id="3_bgq3a"]
 [ext_resource type="Texture2D" uid="uid://c7uwtudym7p1k" path="res://Art/Main Art/Environment/Green Woods/Assets/Trees.png" id="4_l2wmm"]
 [ext_resource type="PackedScene" uid="uid://cq5141bkagfoy" path="res://Enemy/orc.tscn" id="5_1jhu4"]
-[ext_resource type="PackedScene" uid="uid://bn5uxc2gprhcm" path="res://gui/gui.tscn" id="6_uqcwh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lfmno"]
 texture = ExtResource("2_jnefs")
@@ -1782,7 +1780,6 @@ sources/2 = SubResource("TileSetAtlasSource_th24r")
 [node name="Room_1" type="Node2D"]
 y_sort_enabled = true
 position = Vector2(154, 104)
-script = ExtResource("1_6mvw1")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_knd77")]
 z_index = 0
@@ -1803,7 +1800,3 @@ layer_2/tile_data = PackedInt32Array(-327676, 327680, 10, -262140, 327680, 11, -
 
 [node name="Orc" parent="." instance=ExtResource("5_1jhu4")]
 position = Vector2(101, 20)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="hearts_container" parent="CanvasLayer" instance=ExtResource("6_uqcwh")]

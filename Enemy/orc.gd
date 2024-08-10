@@ -5,8 +5,8 @@ var speed : int = 50
 var chasing : bool = false
 var player = null
 
-
 func _physics_process(delta):
+	
 	if chasing: 
 		position += (player.position - position) / speed
 		
@@ -18,6 +18,8 @@ func _physics_process(delta):
 			$AnimatedSprite2D.flip_h = false
 	else:
 		$AnimatedSprite2D.play("idle")
+		
+	move_and_collide(Vector2(0,0))
 
 func _on_area_2d_body_entered(body):
 	player = body
@@ -27,3 +29,7 @@ func _on_area_2d_body_entered(body):
 func _on_area_2d_body_exited(body):
 	player = null
 	chasing = false
+	
+func enemy():
+	pass # just a flag
+
