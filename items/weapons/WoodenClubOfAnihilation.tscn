@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://ci5uh0r7kfuha"]
+
+[ext_resource type="PackedScene" uid="uid://b7owlvpd3i5qa" path="res://items/collectable.tscn" id="1_lg10t"]
+[ext_resource type="Resource" uid="uid://cgc7yc4i1muix" path="res://Inventory/item s/WoodenClubOfAnihilation.tres" id="2_3tym4"]
+[ext_resource type="Texture2D" uid="uid://cvybd3w0nqufo" path="res://Art/items/WoodenClubOfAnihilation.png" id="2_u6070"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_88b0l"]
+resource_local_to_scene = true
+size = Vector2(9, 9)
+
+[node name="WoodenClubOfAnihilation" instance=ExtResource("1_lg10t")]
+itemRes = ExtResource("2_3tym4")
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_88b0l")
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(0.41, 0.41)
+texture = ExtResource("2_u6070")

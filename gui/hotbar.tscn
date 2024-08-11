@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://budq5q2dpp1pm"]
+
+[ext_resource type="Script" path="res://gui/hotbar.gd" id="1_eyn8r"]
+[ext_resource type="Texture2D" uid="uid://hxxia7tynceb" path="res://Art/Inventory/OneSlot.png" id="1_md1e3"]
+[ext_resource type="PackedScene" uid="uid://daaqigkgrvdwg" path="res://gui/slot.tscn" id="2_02fdl"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1.0
+offset_right = 63.0
+offset_bottom = 39.0
+script = ExtResource("1_eyn8r")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = -5.0
+offset_top = 7.0
+offset_right = 61.0
+offset_bottom = 33.0
+texture = ExtResource("1_md1e3")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -8.0
+offset_right = 56.0
+offset_bottom = 8.0
+grow_vertical = 2
+columns = 3
+
+[node name="Slot" parent="GridContainer" instance=ExtResource("2_02fdl")]
+layout_mode = 2
+
+[node name="Slot2" parent="GridContainer" instance=ExtResource("2_02fdl")]
+layout_mode = 2
+
+[node name="Slot3" parent="GridContainer" instance=ExtResource("2_02fdl")]
+layout_mode = 2

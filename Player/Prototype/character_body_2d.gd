@@ -10,10 +10,15 @@ signal health_change
 
 @export var knockback_power :int = 2000
 
+@export var inventory: Inventory
+
 var dodging : bool = false
 var can_dodge : bool = true
 
+@onready var animation : AnimationPlayer = $AnimationPlayer
 @onready var animation_tree : AnimationTree = $AnimationTree
+@onready var effects : AnimationPlayer = $Effects
+var last_animation_direction : Vector2
 
 var direction : Vector2 = Vector2.ZERO
 #eq var
@@ -33,15 +38,16 @@ func player():
 
 func _ready():
 	animation_tree.active = true
+	effects.play("RESET")
 	
 func _process(_delta):
 	update_animation_parameters()
 	enemy_attack()
 	
 	if health <= 0:
-		#player_alive = false #add end screen
-		#health = 0
-			health = max_health
+		player_alive = false #add end screen
+		health = 0
+		self.queue_free()
 
 func _physics_process(_delta):
 	direction = Input.get_vector("left", "right", "up", "down").normalized()
@@ -53,6 +59,9 @@ func _physics_process(_delta):
 			animation_tree["parameters/conditions/jett_mode"] = true
 			$dodge_time.start()
 			$dodge_cooldown.start()
+			
+	if Input.is_action_just_pressed("attack"):
+		animation.play()
 			
 	if direction:
 		if dodging:
@@ -77,15 +86,18 @@ func update_animation_parameters():
 		animation_tree["parameters/idle/blend_position"] = direction
 		animation_tree["parameters/Run/blend_position"] = direction
 		animation_tree["parameters/Dodge/blend_position"] = direction
+		last_animation_direction = direction
 
 func enemy_attack():
 	if enemy_in_attack_range and enemy_attack_cooldown == true:
+		enemy_attack_cooldown = false
+		$damage_taken_base_cooldown.start()
 		health -= 1
 		health_change.emit(health)
 		knockback(enemyVelocity)
-		enemy_attack_cooldown = false
-		$damage_taken_base_cooldown.start()
-		print(health)
+		effects.play("hurt")
+		await get_tree().create_timer(1).timeout
+		effects.play("RESET")
 		
 func knockback(enemyVelocity: Vector2):
 	var knockback_direction = (enemyVelocity - velocity).normalized() * knockback_power
@@ -109,10 +121,10 @@ func _on_melee_attack_cooldown_timeout():
 
 
 func _on_playerhitbox_body_entered(body):
+	print("entered")
 	if body.has_method("enemy"):
 		enemyVelocity = body.velocity
 		enemy_in_attack_range = true
-
 
 func _on_playerhitbox_body_exited(body):
 	if body.has_method("enemy"):
@@ -121,3 +133,8 @@ func _on_playerhitbox_body_exited(body):
 
 func _on_damage_taken_base_cooldown_timeout():
 	enemy_attack_cooldown = true
+
+
+func _on_playerhitbox_area_entered(area):
+	if area.has_method("collect"):
+		area.collect(inventory)
