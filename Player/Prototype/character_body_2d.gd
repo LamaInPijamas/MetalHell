@@ -15,10 +15,11 @@ signal health_change
 var dodging : bool = false
 var can_dodge : bool = true
 
-@onready var animation : AnimationPlayer = $AnimationPlayer
+@onready var player_sprite : Sprite2D = $Sprite2D
+@onready var attack_animations : AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_tree : AnimationTree = $AnimationTree
 @onready var effects : AnimationPlayer = $Effects
-var last_animation_direction : Vector2
+var last_direction: String = "Down"
 
 var direction : Vector2 = Vector2.ZERO
 #eq var
@@ -39,6 +40,7 @@ func player():
 func _ready():
 	animation_tree.active = true
 	effects.play("RESET")
+	attack_animations.visible = false
 	
 func _process(_delta):
 	update_animation_parameters()
@@ -52,6 +54,11 @@ func _process(_delta):
 func _physics_process(_delta):
 	direction = Input.get_vector("left", "right", "up", "down").normalized()
 	
+	var last_direction = "Down"
+	if velocity.x < 0: last_direction = "Left"
+	elif velocity.x > 0: last_direction = "Right"
+	elif velocity.y < 0: last_direction = "Up"
+	
 	if Input.is_action_just_pressed("dodge") and can_dodge:
 		if(velocity != Vector2.ZERO):
 			dodging = true
@@ -59,9 +66,20 @@ func _physics_process(_delta):
 			animation_tree["parameters/conditions/jett_mode"] = true
 			$dodge_time.start()
 			$dodge_cooldown.start()
-			
+				
 	if Input.is_action_just_pressed("attack"):
-		animation.play()
+		player_sprite.visible = false
+		attack_animations.visible = true
+		move_speed = 25
+		attack_animations.play("attack" + last_direction)
+		Global.current_player_attack = true
+		
+	if Input.is_action_just_pressed("Ultimate"):
+		player_sprite.visible = false
+		attack_animations.visible = true
+		move_speed = 25
+		attack_animations.play("ulti")
+		Global.current_player_attack = true
 			
 	if direction:
 		if dodging:
@@ -86,7 +104,6 @@ func update_animation_parameters():
 		animation_tree["parameters/idle/blend_position"] = direction
 		animation_tree["parameters/Run/blend_position"] = direction
 		animation_tree["parameters/Dodge/blend_position"] = direction
-		last_animation_direction = direction
 
 func enemy_attack():
 	if enemy_in_attack_range and enemy_attack_cooldown == true:
@@ -121,7 +138,6 @@ func _on_melee_attack_cooldown_timeout():
 
 
 func _on_playerhitbox_body_entered(body):
-	print("entered")
 	if body.has_method("enemy"):
 		enemyVelocity = body.velocity
 		enemy_in_attack_range = true
@@ -138,3 +154,10 @@ func _on_damage_taken_base_cooldown_timeout():
 func _on_playerhitbox_area_entered(area):
 	if area.has_method("collect"):
 		area.collect(inventory)
+
+
+func _on_animated_sprite_2d_animation_finished():
+	attack_animations.visible = false
+	Global.current_player_attack = false
+	move_speed = 100
+	player_sprite.visible = true

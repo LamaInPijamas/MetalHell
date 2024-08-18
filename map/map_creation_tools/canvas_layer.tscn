@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck7r6dpfdjeoi"]
+
+[ext_resource type="PackedScene" uid="uid://bn5uxc2gprhcm" path="res://gui/gui.tscn" id="1_rrmpq"]
+[ext_resource type="PackedScene" uid="uid://budq5q2dpp1pm" path="res://gui/hotbar.tscn" id="2_6wvou"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="hearts_container" parent="." instance=ExtResource("1_rrmpq")]
+
+[node name="Hotbar" parent="." instance=ExtResource("2_6wvou")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -31.0
+offset_top = -39.0
+offset_right = 31.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0

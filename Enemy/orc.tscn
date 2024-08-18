@@ -1,7 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://cq5141bkagfoy"]
+[gd_scene load_steps=32 format=3 uid="uid://cq5141bkagfoy"]
 
 [ext_resource type="Script" path="res://Enemy/orc.gd" id="1_jaokw"]
 [ext_resource type="Texture2D" uid="uid://dy54iloihecas" path="res://Art/Main Art/Enemies/Characters(100x100)/Orc/Orc/Orc-Death.png" id="2_85wog"]
+[ext_resource type="Texture2D" uid="uid://dme6ljmioxvr0" path="res://Art/Main Art/Enemies/Characters(100x100)/Orc/Orc/Orc-Hurt.png" id="3_f1s1s"]
 [ext_resource type="Texture2D" uid="uid://ba8rxv1n6n7bk" path="res://Art/Main Art/Enemies/Characters(100x100)/Orc/Orc/Orc-Idle.png" id="3_plgw4"]
 [ext_resource type="Texture2D" uid="uid://bsmr1h2jbffnn" path="res://Art/Main Art/Enemies/Characters(100x100)/Orc/Orc/Orc-Walk.png" id="4_0i15s"]
 
@@ -19,6 +20,22 @@ region = Rect2(200, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_balpr"]
 atlas = ExtResource("2_85wog")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7bsu"]
+atlas = ExtResource("3_f1s1s")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_no8ov"]
+atlas = ExtResource("3_f1s1s")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jp2a"]
+atlas = ExtResource("3_f1s1s")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vy8rs"]
+atlas = ExtResource("3_f1s1s")
 region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b72q8"]
@@ -92,9 +109,26 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_balpr")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
-"speed": 7.0
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7bsu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_no8ov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jp2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vy8rs")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -156,7 +190,7 @@ radius = 45.1774
 radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v0fan"]
-radius = 15.0
+radius = 33.0
 
 [node name="Orc" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -167,27 +201,40 @@ script = ExtResource("1_jaokw")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_h6vrm")
-animation = &"walk"
-frame_progress = 0.806089
+animation = &"hurt"
+frame = 3
+frame_progress = 1.0
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 collision_mask = 2
 
 [node name="DetectionArea" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("CircleShape2D_btg5p")
 
 [node name="OrcCollision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_ufvqa")
 
 [node name="enemy_hitbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hitbox"]
+visible = false
 position = Vector2(3, 0)
 shape = SubResource("CircleShape2D_v0fan")
 
+[node name="damage_taking_base_cooldown" type="Timer" parent="."]
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="area_entered" from="enemy_hitbox" to="." method="_on_enemy_hitbox_area_entered"]
+[connection signal="body_entered" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_entered"]
+[connection signal="body_exited" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_exited"]
+[connection signal="timeout" from="damage_taking_base_cooldown" to="." method="_on_damage_taking_base_cooldown_timeout"]
